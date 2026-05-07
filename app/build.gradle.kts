@@ -12,6 +12,7 @@ dependencies {
     implementation(libs.jda)
 }
 
+@Suppress("UnstableApiUsage", "Unused")
 testing {
     suites {
         val test by getting(JvmTestSuite::class) {
