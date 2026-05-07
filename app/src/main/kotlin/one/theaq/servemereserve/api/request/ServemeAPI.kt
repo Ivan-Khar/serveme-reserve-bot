@@ -1,5 +1,6 @@
 package one.theaq.servemereserve.api.request
 
+import jdk.internal.net.http.common.Log.headers
 import net.dv8tion.jda.api.requests.Method
 import one.theaq.servemereserve.api.data.ServemeRegion
 import tools.jackson.databind.ObjectMapper
@@ -24,13 +25,13 @@ class ServemeAPI(
         .build()
 
     fun <T: Any> requestGET(path: String, javaClass: Class<T>): T {
-        val response = makeRequest(path, Method.GET, Optional.empty())
+        val response = makeRequest(path, Method.GET, Optional.empty(), Optional.empty())
         val objectMapper = jacksonObjectMapper()
 
         return objectMapper.readValue(response, javaClass)
     }
 
-    fun makeRequest(path: String, requestType: Method, body: Optional<HttpRequest.BodyPublisher>): String {
+    fun makeRequest(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>): String {
         val uri = region.uri.resolve("api/$path")
 
         val requestBuilder = HttpRequest.newBuilder()
@@ -39,6 +40,8 @@ class ServemeAPI(
             .header("accept", "application/json; charset=utf-8")
             .header("Content-Type", "application/json; charset=utf-8")
             .header("Authorization", "Bearer $apiKey")
+
+        header.ifPresent { array -> requestBuilder.headers(*array) }
 
         val requestBody = body.orElse(BodyPublishers.noBody())
         when (requestType) {

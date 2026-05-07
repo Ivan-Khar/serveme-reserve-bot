@@ -11,8 +11,10 @@ data class ServemeServer(
     val flag: String, // flag
     val ip: URI, // ip
     val port: Int, // port
-    @field:JsonProperty("ip_and_port") val ipAndPort: Optional<URI>, // ip_and_port
-    @field:JsonProperty("resolved_ip") val resolvedIP: Optional<URI>, // resolved_ip
+    @field:JsonProperty("ip_and_port")
+    val ipAndPort: Optional<URI>, // ip_and_port
+    @field:JsonProperty("resolved_ip")
+    val resolvedIP: Optional<URI>, // resolved_ip
     val sdr: Boolean, // sdr
     val latitude: String, // latitude
     val longitude: String // longitude
