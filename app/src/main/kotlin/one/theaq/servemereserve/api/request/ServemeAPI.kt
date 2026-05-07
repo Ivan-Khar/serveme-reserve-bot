@@ -32,7 +32,6 @@ class ServemeAPI(
             .header("Authorization", "Bearer $apiKey")
 
         val requestBody = body.orElse(BodyPublishers.noBody())
-
         when (requestType) {
             Method.HEAD -> requestBuilder.HEAD()
             Method.GET -> requestBuilder.GET()
