@@ -5,6 +5,8 @@ import java.net.URL
 import java.time.LocalDateTime
 import kotlin.time.Duration
 
+// TODO: make all nulls become -1 or empty strings
+//      should be the case for all data objects
 data class ServemeReservation(
     val status: ReservationStatus, // status
     val startsAt: LocalDateTime, // starts_at
