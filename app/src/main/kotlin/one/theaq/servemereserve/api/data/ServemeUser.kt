@@ -13,4 +13,4 @@ data class ServemeUser(
     val donatorUntil: Optional<LocalDateTime>, // donator_until
     val reservationsMade: Int, // reservations_made
     val totalReservationTime: Duration // total_reservation_seconds
-) {}
+)
