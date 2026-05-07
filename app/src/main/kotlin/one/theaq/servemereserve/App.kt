@@ -15,5 +15,11 @@ class App {
 fun main() {
     val test = ServemeAPI(ServemeRegion.EU, "a")
 
-    print(test.makeRequest("maps", Method.GET,Optional.empty()))
+    print(
+        test.makeRequest(
+            "servers",
+            Method.GET,
+            Optional.empty()
+        ).body()
+    )
 }
