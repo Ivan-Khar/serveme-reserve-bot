@@ -1,6 +1,6 @@
 package one.theaq.servemereserve.api.data.reservation
 
-import one.theaq.servemereserve.api.data.ServemeServer
+import one.theaq.servemereserve.api.data.server.ServemeServer
 import java.net.URL
 import java.time.LocalDateTime
 import java.util.Optional
@@ -44,4 +44,4 @@ data class ServemeReservation(
     val server: ServemeServer, // server
     val logUploads: List<String>, // log_uploads // TODO: figure out the right data type
     val zipfileURL: URL, // zipfile_url
-) {}
+)

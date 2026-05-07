@@ -10,6 +10,8 @@ repositories {
 dependencies {
     implementation(libs.guava)
     implementation(libs.jda)
+    implementation(libs.jacksonCore)
+    implementation(libs.jacksonDatabind)
 }
 
 @Suppress("UnstableApiUsage", "Unused")

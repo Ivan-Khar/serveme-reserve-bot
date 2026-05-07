@@ -1,9 +1,10 @@
 package one.theaq.servemereserve
 
-import net.dv8tion.jda.api.requests.Method
 import one.theaq.servemereserve.api.data.ServemeRegion
+import one.theaq.servemereserve.api.data.server.ServemeServer
+import one.theaq.servemereserve.api.data.server.ServemeServers
 import one.theaq.servemereserve.api.request.ServemeAPI
-import java.util.Optional
+import kotlin.jvm.java
 
 class App {
     val greeting: String
@@ -13,13 +14,12 @@ class App {
 }
 
 fun main() {
-    val test = ServemeAPI(ServemeRegion.EU, "a")
+    val test = ServemeAPI(ServemeRegion.EU, "")
 
     print(
-        test.makeRequest(
+        test.requestGET(
             "servers",
-            Method.GET,
-            Optional.empty()
-        ).body()
+            ServemeServers::class.java
+        )
     )
 }

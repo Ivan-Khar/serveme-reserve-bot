@@ -4,4 +4,4 @@ data class ServemeActions(
     val create: Boolean,
     val patch: Boolean,
     val delete: Boolean
-) {}
+)
