@@ -1,7 +1,6 @@
 package one.theaq.servemereserve
 
 import one.theaq.servemereserve.api.data.ServemeRegion
-import one.theaq.servemereserve.api.data.server.ServemeServer
 import one.theaq.servemereserve.api.data.server.ServemeServers
 import one.theaq.servemereserve.api.request.ServemeAPI
 import kotlin.jvm.java

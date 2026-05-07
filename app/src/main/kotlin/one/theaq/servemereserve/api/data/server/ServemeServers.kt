@@ -10,9 +10,7 @@ data class ServemeServers(
 
         other as ServemeServers
 
-        if (!servers.contentEquals(other.servers)) return false
-
-        return true
+        return servers.contentEquals(other.servers)
     }
 
     override fun hashCode(): Int {

@@ -1,6 +1,7 @@
 package one.theaq.servemereserve.api.data.reservation
 
 import one.theaq.servemereserve.api.data.server.ServemeServer
+import java.net.URI
 import java.net.URL
 import java.time.LocalDateTime
 import java.util.Optional
@@ -26,7 +27,7 @@ data class ServemeReservation(
     val autoEnd: Boolean, // auto_end
     val enablePlugins: Boolean, // enable_plugins
     val enableDemosTF: Boolean, // enable_demos_tf
-    val sdrIP: URL, // sdr_ip
+    val sdrIP: URI, // sdr_ip
     val sdrPort: Int, // sdr_port
     val sdrTVPort: Int, // sdr_tv_port
     val sdrFinal: Boolean, // sdr_final
@@ -43,5 +44,5 @@ data class ServemeReservation(
     val steamUID: String, // steam_uid
     val server: ServemeServer, // server
     val logUploads: List<String>, // log_uploads // TODO: figure out the right data type
-    val zipfileURL: URL, // zipfile_url
+    val zipfileURL: URI, // zipfile_url
 )

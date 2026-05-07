@@ -8,6 +8,7 @@ guava = { module = "com.google.guava:guava", version.ref = "guava" }
 jda = { module = "net.dv8tion:JDA", version.ref = "jda" }
 jacksonCore = { module = "tools.jackson.core:jackson-core", version.ref = "jackson" }
 jacksonDatabind = { module = "tools.jackson.core:jackson-databind", version.ref = "jackson" }
+jacksonKotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.3.20" }
