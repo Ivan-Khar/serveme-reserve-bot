@@ -3,6 +3,7 @@ package one.theaq.servemereserve.api.request
 import net.dv8tion.jda.api.requests.Method
 import one.theaq.servemereserve.api.data.ServemeRegion
 import tools.jackson.databind.ObjectMapper
+import tools.jackson.module.kotlin.jacksonObjectMapper
 import java.net.http.HttpClient
 import java.net.http.HttpClient.Redirect
 import java.net.http.HttpClient.Version
@@ -24,7 +25,7 @@ class ServemeAPI(
 
     fun <T: Any> requestGET(path: String, javaClass: Class<T>): T {
         val response = makeRequest(path, Method.GET, Optional.empty())
-        val objectMapper = ObjectMapper()
+        val objectMapper = jacksonObjectMapper()
 
         return objectMapper.readValue(response, javaClass)
     }

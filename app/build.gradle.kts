@@ -12,6 +12,7 @@ dependencies {
     implementation(libs.jda)
     implementation(libs.jacksonCore)
     implementation(libs.jacksonDatabind)
+    implementation(libs.jacksonKotlin)
 }
 
 @Suppress("UnstableApiUsage", "Unused")
