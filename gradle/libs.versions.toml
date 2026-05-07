@@ -3,9 +3,11 @@
 
 [versions]
 guava = "33.5.0-jre"
+jda = "6.4.1"
 
 [libraries]
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
+jda = { module = "net.dv8tion:JDA", version.ref = "jda" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.3.20" }
