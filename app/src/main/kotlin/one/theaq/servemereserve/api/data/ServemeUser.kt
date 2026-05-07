@@ -1,8 +1,8 @@
 package one.theaq.servemereserve.api.data
 
-import java.time.Duration
 import java.time.LocalDateTime
 import java.util.Optional
+import kotlin.time.Duration
 
 data class ServemeUser(
     val id: Int, // id
