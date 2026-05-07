@@ -11,4 +11,5 @@ enum class ReservationStatus {
     WAITING, // Waiting to start
     PROVISIONING, // Cloud server provisioning
     CONFIGURING, // Configuring
+    UNKNOWN, // Unknown
 }
