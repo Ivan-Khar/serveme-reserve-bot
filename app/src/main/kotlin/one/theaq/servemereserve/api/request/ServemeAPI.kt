@@ -22,15 +22,17 @@ class ServemeAPI(
         .build()
 
     fun makeRequest(path: String, requestType: Method, body: Optional<HttpRequest.BodyPublisher>): HttpResponse<*> {
-        val uri = region.uri.resolve(path)
+        val uri = region.uri.resolve("api/$path")
+
         val requestBuilder = HttpRequest.newBuilder()
             .uri(uri)
             .timeout(10.seconds.toJavaDuration())
-            .setHeader("Content-Type", "application/json")
-            .setHeader("Accept", "application/json")
-            .setHeader("Authorization", "Bearer $apiKey")
+            .header("accept", "application/json")
+            .header("Content-Type", "application/json")
+            .header("Authorization", "Bearer $apiKey")
 
         val requestBody = body.orElse(BodyPublishers.noBody())
+
         when (requestType) {
             Method.HEAD -> requestBuilder.HEAD()
             Method.GET -> requestBuilder.GET()
