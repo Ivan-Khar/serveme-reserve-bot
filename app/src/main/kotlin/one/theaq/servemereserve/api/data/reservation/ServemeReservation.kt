@@ -3,24 +3,26 @@ package one.theaq.servemereserve.api.data.reservation
 import one.theaq.servemereserve.api.data.ServemeServer
 import java.net.URL
 import java.time.LocalDateTime
+import java.util.Optional
 import kotlin.time.Duration
 
 // TODO: make all nulls become -1 or empty strings
 //      should be the case for all data objects
 data class ServemeReservation(
+    val id: Int, // id
     val status: ReservationStatus, // status
     val startsAt: LocalDateTime, // starts_at
     val endsAt: LocalDateTime, // ends_at
-    val serverId: Int, //server_id // nullable
-    val password: String, // password // nullable
-    val rconPassword: String, // rcon // nullable
-    val firstMap: String, // first_map // nullable
+    val serverId: Int, //server_id nullable
+    val password: String, // password nullable
+    val rconPassword: String, // rcon nullable
+    val firstMap: String, // first_map nullable
     val stvPassword: String, // tv_password
     val stvRelayPassword: String, // tv_relaypassword
-    val stvPort: Int, // tv_port // nullable
-    val configId: Int, // server_config_id // nullable
-    val whitelistId: Int, // whitelist_id // nullable
-    val customWhitelistId: Int, // custom_whitelist_id // nullable
+    val stvPort: Int, // tv_port nullable
+    val configId: Int, // server_config_id nullable
+    val whitelistId: Int, // whitelist_id nullable
+    val customWhitelistId: Int, // custom_whitelist_id nullable
     val autoEnd: Boolean, // auto_end
     val enablePlugins: Boolean, // enable_plugins
     val enableDemosTF: Boolean, // enable_demos_tf
@@ -29,8 +31,8 @@ data class ServemeReservation(
     val sdrTVPort: Int, // sdr_tv_port
     val sdrFinal: Boolean, // sdr_final
     val disableDemocheck: Boolean, // disable_democheck
+    val errors: Optional<Map<String, String>>, // errors { "error_value": { "error": "error_description" } }
     val democheckMode: ReservationDemomode, // democheck_mode
-    val id: Int, // id
     val lastNumberOfPlayers: Int, // last_number_of_players
     val inactiveMinuteCounter: Duration, // inactive_minute_counter
     val logSecret: String, // logsecret
