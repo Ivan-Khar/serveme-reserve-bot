@@ -16,7 +16,7 @@ class ServemeAPI(
     val region: ServemeRegion,
     val apiKey: String
 ) {
-    val httpClient = HttpClient.newBuilder()
+    val httpClient: HttpClient = HttpClient.newBuilder()
         .version(Version.HTTP_2)
         .followRedirects(Redirect.ALWAYS)
         .build()
@@ -26,8 +26,9 @@ class ServemeAPI(
         val requestBuilder = HttpRequest.newBuilder()
             .uri(uri)
             .timeout(10.seconds.toJavaDuration())
-            .header("Content-Type", "application/json")
-            .header("Authorization", "Bearer $apiKey")
+            .setHeader("Content-Type", "application/json")
+            .setHeader("Accept", "application/json")
+            .setHeader("Authorization", "Bearer $apiKey")
 
         val requestBody = body.orElse(BodyPublishers.noBody())
         when (requestType) {
