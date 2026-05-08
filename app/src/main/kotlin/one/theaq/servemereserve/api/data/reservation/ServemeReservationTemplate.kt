@@ -11,9 +11,7 @@ import java.util.Optional
 import kotlin.time.Duration
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
-data class ServemeReservation(
-    @field:JsonProperty("id")
-    val id: Int,
+data class ServemeReservationTemplate(
     @field:JsonProperty("status")
     val status: ReservationStatus,
     @field:JsonProperty("starts_at")
@@ -60,29 +58,4 @@ data class ServemeReservation(
     val democheckMode: ReservationDemomode,
     @field:JsonProperty("errors")
     val errors: Optional<Map<String, String>>, // errors { "error_value": { "error": "error_description" } }
-    @field:JsonProperty("last_number_of_players")
-    val lastNumberOfPlayers: Int,
-    @field:JsonProperty("inactive_minute_counter")
-    @field:JsonDeserialize(using = KTDurationDeserializer::class)
-    val inactiveMinuteCounter: Duration,
-    @field:JsonProperty("logsecret")
-    val logSecret: String,
-    @field:JsonProperty("start_instantly")
-    val startInstantly: Boolean,
-    @field:JsonProperty("end_instantly")
-    val endInstantly: Boolean,
-    @field:JsonProperty("provisioned")
-    val provisioned: Boolean,
-    @field:JsonProperty("ended")
-    val ended: Boolean,
-    @field:JsonProperty("steam_uid")
-    val steamUID: String,
-    @field:JsonProperty("server")
-    val server: ServemeServer,
-    @field:JsonProperty("progress")
-    val progress: Optional<ServemeReservationProgress>,
-    @field:JsonProperty("log_uploads")
-    val logUploads: Optional<List<String>>,
-    @field:JsonProperty("zipfile_url")
-    val zipfileURL: Optional<String>,
 )

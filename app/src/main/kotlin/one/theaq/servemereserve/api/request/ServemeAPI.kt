@@ -2,7 +2,6 @@ package one.theaq.servemereserve.api.request
 
 import net.dv8tion.jda.api.requests.Method
 import one.theaq.servemereserve.api.data.ServemeRegion
-import one.theaq.servemereserve.api.data.reservation.ServemeReservationsRequest
 import tools.jackson.core.StreamReadFeature
 import tools.jackson.databind.DeserializationFeature
 import tools.jackson.module.kotlin.jsonMapper
@@ -32,8 +31,12 @@ class ServemeAPI(
         return deserialize(path, Method.GET, Optional.empty(), Optional.empty(), classType)
     }
 
+    inline fun <reified T: Any> requestPOST(path: String, body: Optional<HttpRequest.BodyPublisher>, classType: KClass<T>): T {
+        return deserialize(path, Method.POST, Optional.empty(), body, classType)
+    }
+
     inline fun <reified T : Any> deserialize(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>, classType: KClass<T>): T {
-        val response = makeRequest(path, Method.GET, Optional.empty(), Optional.empty())
+        val response = makeRequest(path, requestType, header, body)
         val objectMapper = jsonMapper {
             addModule(kotlinModule())
 
@@ -47,6 +50,7 @@ class ServemeAPI(
 
     fun makeRequest(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>): String {
         val uri = region.uri.resolve("api/$path")
+        println(uri)
 
         val requestBuilder = HttpRequest.newBuilder()
             .uri(uri)
@@ -68,7 +72,6 @@ class ServemeAPI(
             Method.POST -> requestBuilder.POST(requestBody)
             Method.PATCH -> requestBuilder.method("PATCH", requestBody)
         }
-
 
         val response = httpClient.send(requestBuilder.build(), HttpResponse.BodyHandlers.ofString())
         println("${response.statusCode()} ${response.body()}")
