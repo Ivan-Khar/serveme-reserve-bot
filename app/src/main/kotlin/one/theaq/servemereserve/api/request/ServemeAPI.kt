@@ -1,10 +1,13 @@
 package one.theaq.servemereserve.api.request
 
-import jdk.internal.net.http.common.Log.headers
 import net.dv8tion.jda.api.requests.Method
 import one.theaq.servemereserve.api.data.ServemeRegion
-import tools.jackson.databind.ObjectMapper
+import tools.jackson.core.StreamReadFeature
+import tools.jackson.databind.DeserializationFeature
+import tools.jackson.module.kotlin.KotlinFeature
 import tools.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.module.kotlin.jsonMapper
+import tools.jackson.module.kotlin.kotlinModule
 import java.net.http.HttpClient
 import java.net.http.HttpClient.Redirect
 import java.net.http.HttpClient.Version
@@ -25,8 +28,19 @@ class ServemeAPI(
         .build()
 
     fun <T: Any> requestGET(path: String, javaClass: Class<T>): T {
+        return deserialize(path, Method.GET, Optional.empty(), Optional.empty(), javaClass)
+    }
+
+    fun <T: Any> deserialize(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>, javaClass: Class<T>): T {
         val response = makeRequest(path, Method.GET, Optional.empty(), Optional.empty())
-        val objectMapper = jacksonObjectMapper()
+        val objectMapper = jsonMapper {
+            addModule(kotlinModule {
+                //configure(KotlinFeature.NullIsSameAsDefault, true)
+            })
+
+            configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false)
+            configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION, true)
+        }
 
         return objectMapper.readValue(response, javaClass)
     }
