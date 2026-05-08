@@ -34,12 +34,11 @@ class ServemeAPI(
     fun <T: Any> deserialize(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>, javaClass: Class<T>): T {
         val response = makeRequest(path, Method.GET, Optional.empty(), Optional.empty())
         val objectMapper = jsonMapper {
-            addModule(kotlinModule {
-                //configure(KotlinFeature.NullIsSameAsDefault, true)
-            })
+            addModule(kotlinModule())
 
             configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false)
-            configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION, true)
+            configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION, true) // TODO: debug line
+
         }
 
         return objectMapper.readValue(response, javaClass)
