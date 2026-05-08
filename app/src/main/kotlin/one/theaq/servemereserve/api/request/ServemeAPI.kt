@@ -2,12 +2,12 @@ package one.theaq.servemereserve.api.request
 
 import net.dv8tion.jda.api.requests.Method
 import one.theaq.servemereserve.api.data.ServemeRegion
+import one.theaq.servemereserve.api.data.reservation.ServemeReservationsRequest
 import tools.jackson.core.StreamReadFeature
 import tools.jackson.databind.DeserializationFeature
-import tools.jackson.module.kotlin.KotlinFeature
-import tools.jackson.module.kotlin.jacksonObjectMapper
 import tools.jackson.module.kotlin.jsonMapper
 import tools.jackson.module.kotlin.kotlinModule
+import tools.jackson.module.kotlin.readValue
 import java.net.http.HttpClient
 import java.net.http.HttpClient.Redirect
 import java.net.http.HttpClient.Version
@@ -15,6 +15,7 @@ import java.net.http.HttpRequest
 import java.net.http.HttpRequest.BodyPublishers
 import java.net.http.HttpResponse
 import java.util.*
+import kotlin.reflect.KClass
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
 
@@ -27,11 +28,11 @@ class ServemeAPI(
         .followRedirects(Redirect.ALWAYS)
         .build()
 
-    fun <T: Any> requestGET(path: String, javaClass: Class<T>): T {
-        return deserialize(path, Method.GET, Optional.empty(), Optional.empty(), javaClass)
+    inline fun <reified T: Any> requestGET(path: String, classType: KClass<T>): T {
+        return deserialize(path, Method.GET, Optional.empty(), Optional.empty(), classType)
     }
 
-    fun <T: Any> deserialize(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>, javaClass: Class<T>): T {
+    inline fun <reified T : Any> deserialize(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>, classType: KClass<T>): T {
         val response = makeRequest(path, Method.GET, Optional.empty(), Optional.empty())
         val objectMapper = jsonMapper {
             addModule(kotlinModule())
@@ -41,7 +42,7 @@ class ServemeAPI(
 
         }
 
-        return objectMapper.readValue(response, javaClass)
+        return objectMapper.readValue(response)
     }
 
     fun makeRequest(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>): String {
