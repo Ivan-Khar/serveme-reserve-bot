@@ -6,15 +6,9 @@ import one.theaq.servemereserve.api.request.ServemeAPI
 import java.net.http.HttpRequest
 import java.util.Optional
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello World!"
-        }
-}
-
 fun main() {
-    val test = ServemeAPI(ServemeRegion.EU, "")
+    val apiKey = System.getenv("api_key")
+    val test = ServemeAPI(ServemeRegion.EU, apiKey)
 
     print(
         test.requestPOST(
