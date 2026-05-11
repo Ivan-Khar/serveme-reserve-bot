@@ -19,4 +19,8 @@ class KTOptionalDurationDeserializer: ValueDeserializer<Optional<Duration>>() {
             return Optional.empty<Duration>()
         }
     }
+
+    override fun getNullValue(ctxt: DeserializationContext): Any {
+        return Optional.empty<Duration>()
+    }
 }

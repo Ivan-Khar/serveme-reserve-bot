@@ -2,7 +2,6 @@ package one.theaq.servemereserve.api.data.reservation
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import one.theaq.servemereserve.api.data.deserializer.KTDurationDeserializer
 import one.theaq.servemereserve.api.data.deserializer.KTOptionalDurationDeserializer
 import one.theaq.servemereserve.api.data.server.ServemeServer
 import tools.jackson.databind.annotation.JsonDeserialize
@@ -63,8 +62,8 @@ data class ServemeReservation(
     @field:JsonProperty("last_number_of_players")
     val lastNumberOfPlayers: Int,
     @field:JsonProperty("inactive_minute_counter")
-    @field:JsonDeserialize(using = KTDurationDeserializer::class)
-    val inactiveMinuteCounter: Duration,
+    @field:JsonDeserialize(using = KTOptionalDurationDeserializer::class)
+    val inactiveMinuteCounter: Optional<Duration>,
     @field:JsonProperty("logsecret")
     val logSecret: String,
     @field:JsonProperty("start_instantly")
