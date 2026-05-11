@@ -30,16 +30,20 @@ class ServemeAPI(
         .followRedirects(Redirect.ALWAYS)
         .build()
 
-    inline fun <reified T: Any> requestGET(path: String, classType: KClass<T>): T {
+    inline fun <reified T: Any> requestGET(path: String, classType: KClass<T>): Optional<T> {
         return deserialize(path, Method.GET, Optional.empty(), Optional.empty(), classType)
     }
 
-    inline fun <reified T: Any> requestPOST(path: String, body: Optional<HttpRequest.BodyPublisher>, classType: KClass<T>): T {
+    inline fun <reified T: Any> requestPOST(path: String, body: Optional<HttpRequest.BodyPublisher>, classType: KClass<T>): Optional<T> {
         return deserialize(path, Method.POST, Optional.empty(), body, classType)
     }
 
-    inline fun <reified T : Any> deserialize(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>, classType: KClass<T>): T {
+    inline fun <reified T : Any> deserialize(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>, classType: KClass<T>): Optional<T> {
         val response = makeRequest(path, requestType, header, body)
+        when(response[0]) {
+            "401" -> return Optional<T>.empty()
+        }
+
         val objectMapper = jsonMapper {
             addModule(kotlinModule())
 
@@ -51,10 +55,10 @@ class ServemeAPI(
             configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION, true) // TODO: debug line
         }
 
-        return objectMapper.readValue(response)
+        return Optional.of<T>(objectMapper.readValue(response[1]))
     }
 
-    fun makeRequest(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>): String {
+    fun makeRequest(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>): Array<String> {
         val uri = region.apiPath(path)
         println(uri)
 
@@ -80,8 +84,7 @@ class ServemeAPI(
         }
 
         val response = httpClient.send(requestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-        println("${response.statusCode()} ${response.body()}")
-
-        return response.body()
+        println(response.statusCode())
+        return arrayOf("${response.statusCode()}", response.body())
     }
 }
