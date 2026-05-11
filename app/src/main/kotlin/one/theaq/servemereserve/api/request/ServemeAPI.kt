@@ -55,7 +55,7 @@ class ServemeAPI(
     }
 
     fun makeRequest(path: String, requestType: Method, header: Optional<Array<String>>, body: Optional<HttpRequest.BodyPublisher>): String {
-        val uri = region.uri.resolve("api/$path")
+        val uri = region.apiPath(path)
         println(uri)
 
         val requestBuilder = HttpRequest.newBuilder()
