@@ -2,13 +2,8 @@ package one.theaq.servemereserve.api.data.reservation
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import one.theaq.servemereserve.api.data.deserializer.KTDurationDeserializer
-import one.theaq.servemereserve.api.data.deserializer.KTOptionalDurationDeserializer
-import one.theaq.servemereserve.api.data.server.ServemeServer
-import tools.jackson.databind.annotation.JsonDeserialize
 import java.util.Date
 import java.util.Optional
-import kotlin.time.Duration
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
 data class ServemeReservationTemplate(

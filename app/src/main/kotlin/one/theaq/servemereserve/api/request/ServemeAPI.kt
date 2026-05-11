@@ -2,8 +2,10 @@ package one.theaq.servemereserve.api.request
 
 import net.dv8tion.jda.api.requests.Method
 import one.theaq.servemereserve.api.data.ServemeRegion
+import one.theaq.servemereserve.api.data.deserializer.KTDurationDeserializer
 import tools.jackson.core.StreamReadFeature
 import tools.jackson.databind.DeserializationFeature
+import tools.jackson.databind.module.SimpleModule
 import tools.jackson.module.kotlin.jsonMapper
 import tools.jackson.module.kotlin.kotlinModule
 import tools.jackson.module.kotlin.readValue
@@ -15,6 +17,7 @@ import java.net.http.HttpRequest.BodyPublishers
 import java.net.http.HttpResponse
 import java.util.*
 import kotlin.reflect.KClass
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
 
@@ -40,9 +43,12 @@ class ServemeAPI(
         val objectMapper = jsonMapper {
             addModule(kotlinModule())
 
+            val additionalDeserializerModule = SimpleModule()
+            additionalDeserializerModule.addDeserializer(Duration::class.java, KTDurationDeserializer())
+            addModule(additionalDeserializerModule)
+
             configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false)
             configure(StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION, true) // TODO: debug line
-
         }
 
         return objectMapper.readValue(response)
