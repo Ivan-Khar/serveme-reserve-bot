@@ -9,13 +9,13 @@ class KTDurationDeserializer: ValueDeserializer<Duration>() {
     override fun deserialize(
         jsonParser: JsonParser,
         context: DeserializationContext
-    ): Duration? {
+    ): Duration {
         try {
             val seconds = jsonParser.intValue
             return Duration.parse("${seconds}s")
         } catch (ex: IllegalArgumentException) {
             print("Couldn't parse Duration: $ex")
-            return null
+            return Duration.ZERO
         }
     }
 
