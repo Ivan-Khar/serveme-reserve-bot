@@ -8,55 +8,55 @@ import java.util.Optional
 import kotlin.time.Duration
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
-data class ServemeReservation(
+class ServemeReservation(
     @field:JsonProperty("id")
     val id: Int,
     @field:JsonProperty("status")
-    val status: ReservationStatus,
+    status: ReservationStatus,
     @field:JsonProperty("starts_at")
-    val startsAt: Date,
+    startsAt: Date,
     @field:JsonProperty("ends_at")
-    val endsAt: Date,
+    endsAt: Date,
     @field:JsonProperty("server_id")
-    val serverId: Optional<Int>,
+    serverId: Optional<Int>,
     @field:JsonProperty("password")
-    val password: Optional<String>,
+    password: Optional<String>,
     @field:JsonProperty("rcon")
-    val rconPassword: Optional<String>,
+    rconPassword: Optional<String>,
     @field:JsonProperty("first_map")
-    val firstMap: Optional<String>,
+    firstMap: Optional<String>,
     @field:JsonProperty("tv_password")
-    val stvPassword: String,
+    stvPassword: String,
     @field:JsonProperty("tv_relaypassword")
-    val stvRelayPassword: String,
+    stvRelayPassword: String,
     @field:JsonProperty("tv_port")
-    val stvPort: Optional<Int>,
+    stvPort: Optional<Int>,
     @field:JsonProperty("server_config_id")
-    val configId: Optional<Int>,
+    configId: Optional<Int>,
     @field:JsonProperty("whitelist_id")
-    val whitelistId: Optional<Int>,
+    whitelistId: Optional<Int>,
     @field:JsonProperty("custom_whitelist_id")
-    val customWhitelistId: Optional<String>,
+    customWhitelistId: Optional<String>,
     @field:JsonProperty("auto_end")
-    val autoEnd: Boolean,
+    autoEnd: Boolean,
     @field:JsonProperty("enable_plugins")
-    val enablePlugins: Boolean,
+    enablePlugins: Boolean,
     @field:JsonProperty("enable_demos_tf")
-    val enableDemosTF: Boolean,
+    enableDemosTF: Boolean,
     @field:JsonProperty("sdr_ip")
-    val sdrIP: Optional<String>,
+    sdrIP: Optional<String>,
     @field:JsonProperty("sdr_port")
-    val sdrPort: Optional<Int>,
+    sdrPort: Optional<Int>,
     @field:JsonProperty("sdr_tv_port")
-    val sdrTVPort: Optional<Int>,
+    sdrTVPort: Optional<Int>,
     @field:JsonProperty("sdr_final")
-    val sdrFinal: Boolean,
+    sdrFinal: Boolean,
     @field:JsonProperty("disable_democheck")
-    val disableDemocheck: Boolean,
+    disableDemocheck: Boolean,
     @field:JsonProperty("democheck_mode")
-    val democheckMode: ReservationDemomode,
+    democheckMode: ReservationDemomode,
     @field:JsonProperty("errors")
-    val errors: Optional<Map<String, String>>, // errors { "error_value": { "error": "error_description" } }
+    errors: Optional<Map<String, String>>, // errors { "error_value": { "error": "error_description" } }
     @field:JsonProperty("last_number_of_players")
     val lastNumberOfPlayers: Int,
     @field:JsonProperty("inactive_minute_counter")
@@ -81,4 +81,4 @@ data class ServemeReservation(
     val logUploads: Optional<List<String>>,
     @field:JsonProperty("zipfile_url")
     val zipfileURL: Optional<String>,
-)
+): ServemeReservationTemplate(status, startsAt, endsAt, serverId, password, rconPassword, firstMap, stvPassword, stvRelayPassword, stvPort, configId, whitelistId, customWhitelistId, autoEnd, enablePlugins, enableDemosTF, sdrIP, sdrPort, sdrTVPort, sdrFinal, disableDemocheck, democheckMode, errors)

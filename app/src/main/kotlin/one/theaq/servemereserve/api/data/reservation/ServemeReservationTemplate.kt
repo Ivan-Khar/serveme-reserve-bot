@@ -6,7 +6,7 @@ import java.util.Date
 import java.util.Optional
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
-data class ServemeReservationTemplate(
+open class ServemeReservationTemplate(
     @field:JsonProperty("status")
     val status: ReservationStatus,
     @field:JsonProperty("starts_at")
