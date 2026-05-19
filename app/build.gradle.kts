@@ -9,10 +9,16 @@ repositories {
 
 dependencies {
     implementation(libs.guava)
+    implementation(kotlin("reflect"))
+
     implementation(libs.jda)
+    implementation(libs.jdaktx)
+
     implementation(libs.jacksonCore)
     implementation(libs.jacksonDatabind)
     implementation(libs.jacksonKotlin)
+
+    implementation(libs.logback)
 }
 
 @Suppress("UnstableApiUsage", "Unused")
