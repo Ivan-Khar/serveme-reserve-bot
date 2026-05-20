@@ -8,8 +8,9 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent
 import one.theaq.servemereserve.App
+import one.theaq.servemereserve.discord.bot.BotHandler
 
-class MessageEvents: CoroutineEventListener {
+class MessageEvents(val handler: BotHandler): CoroutineEventListener {
     override suspend fun onEvent(event: GenericEvent) {
         if (event !is GenericMessageEvent) return
 
@@ -23,6 +24,7 @@ class MessageEvents: CoroutineEventListener {
 
     fun messageReceived(event: MessageReceivedEvent) {
         App.LOGGER.info("ReceivedEvent from ${event.author}: ${event.message}")
+        handler
     }
 
     fun messageDeleted(event: MessageDeleteEvent) {
