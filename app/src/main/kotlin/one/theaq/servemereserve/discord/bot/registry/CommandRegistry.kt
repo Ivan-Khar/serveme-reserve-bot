@@ -1,4 +1,4 @@
-package one.theaq.servemereserve.discord.bot.command
+package one.theaq.servemereserve.discord.bot.registry
 
 class CommandRegistry {
 
