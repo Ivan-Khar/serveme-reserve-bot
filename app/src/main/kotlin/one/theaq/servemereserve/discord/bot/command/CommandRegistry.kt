@@ -1,7 +1,6 @@
 package one.theaq.servemereserve.discord.bot.command
 
-object CommandRegistry {
-
+class CommandRegistry {
 
     fun register() {
 

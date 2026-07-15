@@ -5,16 +5,13 @@ package one.theaq.servemereserve.discord.bot
 import dev.minn.jda.ktx.events.CoroutineEventManager
 import dev.minn.jda.ktx.jdabuilder.intents
 import dev.minn.jda.ktx.jdabuilder.light
+import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.requests.GatewayIntent
 import one.theaq.servemereserve.App
-import one.theaq.servemereserve.discord.bot.event.GuildEvents
-import one.theaq.servemereserve.discord.bot.event.InteractionEvents
-import one.theaq.servemereserve.discord.bot.event.MessageEvents
 
 class BotInit(token: String) {
 
-    val botHandler = BotHandler()
-    val jda = light(token, enableCoroutines = true) {
+    val jda: JDA = light(token, enableCoroutines = true) {
         setEventManager(CoroutineEventManager())
 
         intents += listOf(
@@ -23,13 +20,8 @@ class BotInit(token: String) {
             GatewayIntent.GUILD_MESSAGES,
             GatewayIntent.GUILD_MESSAGE_REACTIONS,
         )
-
-        addEventListeners(
-            MessageEvents(botHandler),
-            InteractionEvents(botHandler),
-            GuildEvents(botHandler)
-        )
     }
+    val botHandler: BotHandler = BotHandler(jda)
 
     init {
         App.LOGGER.info("test")
