@@ -11,8 +11,8 @@ import one.theaq.servemereserve.discord.bot.event.GuildEvents
 import one.theaq.servemereserve.discord.bot.event.InteractionEvents
 import one.theaq.servemereserve.discord.bot.event.MessageEvents
 
-class BotInit {
-    val token: String = System.getenv("jda_token")
+class BotInit(token: String) {
+
     val botHandler = BotHandler()
     val jda = light(token, enableCoroutines = true) {
         setEventManager(CoroutineEventManager())

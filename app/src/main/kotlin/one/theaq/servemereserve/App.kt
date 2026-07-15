@@ -13,8 +13,8 @@ class App {
 }
 
 fun main() {
-    val apiKey = System.getenv("api_key")
-    val test = ServemeAPI(ServemeRegion.EU, apiKey)
+    val servemeApiKey = System.getenv("api_key") ?: throw UnsupportedOperationException("Serveme API key is null")
+    val test = ServemeAPI(ServemeRegion.EU, servemeApiKey)
 
 //    print(
 //        test.requestPOST(
@@ -25,6 +25,6 @@ fun main() {
 //            ServemeReservationsFindRequest::class
 //        )
 //    )
-
-    val bot = BotInit()
+    val discordBotToken = System.getenv("jda_token") ?: throw UnsupportedOperationException("Serveme API key is null")
+    val bot = BotInit(discordBotToken)
 }

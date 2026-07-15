@@ -28,7 +28,7 @@ class GuildEvents(val handler: BotHandler): CoroutineEventListener {
                 Commands.slash("test", "test guild command.")
             )
 
-            addCommands(commands)
+            addCommands(commands).submit()
         }
     }
 }
