@@ -4,18 +4,23 @@ import dev.minn.jda.ktx.interactions.commands.updateCommands
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import one.theaq.servemereserve.discord.bot.command.SlashCommand
+import one.theaq.servemereserve.discord.bot.command.TestCommand
 import java.util.Optional
 
 class CommandRegistry {
     private val commands = HashMap<String, SlashCommand>()
 
-    private fun register() {
+    init {
+        register(TestCommand("test"))
+    }
 
+    private fun register(slashCommand: SlashCommand) {
+        commands[slashCommand.getName()] = slashCommand
     }
 
     fun registerAllCommands(guild: Guild) {
         guild.updateCommands {
-            commands.forEach { (commandID, command) ->
+            commands.forEach { (commandID, _) ->
                 val command = Commands.slash(commandID, "")
 
                 addCommands(command)

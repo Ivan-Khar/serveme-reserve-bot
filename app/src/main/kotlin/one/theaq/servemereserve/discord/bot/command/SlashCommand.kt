@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import one.theaq.servemereserve.discord.bot.command.argument.CommandArgument
 
 interface SlashCommand {
+    fun getName(): String
     fun getArguments(): List<CommandArgument<*>>
     fun onCommand(event: SlashCommandInteractionEvent)
 }
