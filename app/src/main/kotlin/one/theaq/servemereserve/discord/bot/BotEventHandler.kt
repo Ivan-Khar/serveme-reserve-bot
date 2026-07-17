@@ -4,12 +4,14 @@ import net.dv8tion.jda.api.events.guild.GuildAvailableEvent
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
-class BotEventHandler(val bot: BotHandler): ListenerAdapter() {
+class BotEventHandler(val bot: Bot): ListenerAdapter() {
     override fun onGuildAvailable(event: GuildAvailableEvent) {
-       bot.commandRegistry.register(event.guild)
+       bot.commandRegistry.registerAllCommands(event.guild)
     }
 
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
+        event.deferReply()
+
 
     }
 }

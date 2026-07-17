@@ -21,7 +21,7 @@ class BotInit(token: String) {
             GatewayIntent.GUILD_MESSAGE_REACTIONS,
         )
     }
-    val botHandler: BotHandler = BotHandler(jda)
+    val bot = Bot(jda)
 
     init {
         App.LOGGER.info("test")
