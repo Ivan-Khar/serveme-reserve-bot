@@ -11,6 +11,7 @@ class CommandRegistry {
     private val commands = HashMap<String, SlashCommand>()
 
     init {
+        // TODO: command builder
         register(TestCommand("test"))
     }
 
