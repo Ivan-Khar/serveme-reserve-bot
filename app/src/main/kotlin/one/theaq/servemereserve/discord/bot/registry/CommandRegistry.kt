@@ -4,6 +4,7 @@ import dev.minn.jda.ktx.interactions.commands.updateCommands
 import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import one.theaq.servemereserve.discord.bot.command.SlashCommand
+import java.util.Optional
 
 class CommandRegistry {
     private val commands = HashMap<String, SlashCommand>()
@@ -22,5 +23,9 @@ class CommandRegistry {
 
             submit()
         }
+    }
+
+    fun getSlashCommandByName(name: String): Optional<SlashCommand> {
+        return Optional.ofNullable(commands[name])
     }
 }
