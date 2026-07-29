@@ -1,13 +1,18 @@
 package one.theaq.servemereserve.discord.bot
 
 import net.dv8tion.jda.api.events.guild.GuildAvailableEvent
+import net.dv8tion.jda.api.events.guild.GuildReadyEvent
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 class BotEventHandler(val bot: Bot): ListenerAdapter() {
-    override fun onGuildAvailable(event: GuildAvailableEvent) {
+    override fun onGuildReady(event: GuildReadyEvent) {
         bot.commandRegistry.registerAllCommands(event.guild)
+    }
+
+    override fun onGuildAvailable(event: GuildAvailableEvent) {
+
     }
 
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
@@ -21,6 +26,6 @@ class BotEventHandler(val bot: Bot): ListenerAdapter() {
     }
 
     override fun onCommandAutoCompleteInteraction(event: CommandAutoCompleteInteractionEvent) {
-        event
+
     }
 }

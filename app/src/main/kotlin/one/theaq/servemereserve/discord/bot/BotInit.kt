@@ -24,7 +24,7 @@ class BotInit(token: String) {
     val bot = Bot(jda)
 
     init {
-        App.LOGGER.info("test")
+        App.LOGGER.info("bot init")
     }
 
 }

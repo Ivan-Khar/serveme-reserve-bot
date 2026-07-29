@@ -16,12 +16,17 @@ abstract class SlashCommand {
 
     private fun addArgument(argument: CommandArgument<*>) {
         if ( arguments.any { it.id == argument.id } ) throw IllegalArgumentException("Argument ${argument.id} already registered")
-        this.arguments += argument
+        this.arguments.addLast(argument)
     }
 
     class Builder(val id: String, val slashCommand: SlashCommand) {
         init {
             slashCommand.id = id
+        }
+
+        fun setDescription(description: String): Builder {
+            slashCommand.description = description
+            return this
         }
 
         fun addArgument(argument: CommandArgument<*>): Builder {
@@ -31,6 +36,7 @@ abstract class SlashCommand {
 
         fun build(): SlashCommand {
             if (slashCommand.id.isEmpty()) throw IllegalArgumentException("ID cant be empty")
+            if (slashCommand.description.isEmpty()) throw IllegalArgumentException("Description cant be empty")
 
             return slashCommand
         }
