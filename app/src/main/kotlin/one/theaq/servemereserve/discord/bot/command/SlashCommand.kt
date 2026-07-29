@@ -3,33 +3,34 @@ package one.theaq.servemereserve.discord.bot.command
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import one.theaq.servemereserve.discord.bot.command.argument.CommandArgument
 
-abstract class SlashCommand() {
-    private var id: String = ""
-    private val arguments: List<CommandArgument<*>> = emptyList()
-
-    fun getID(): String {
-        return id
-    }
-
-    fun getArguments(): List<CommandArgument<*>> {
-        return arguments
-    }
+abstract class SlashCommand {
+    var id: String = ""
+        private set
+    var description: String = ""
+        private set
+    val arguments: MutableList<CommandArgument<*>> = mutableListOf()
 
     open fun onCommand(event: SlashCommandInteractionEvent) {
 
     }
 
-    private fun setID(id: String) {
-        this.id = id
+    private fun addArgument(argument: CommandArgument<*>) {
+        if ( arguments.any { it.id == argument.id } ) throw IllegalArgumentException("Argument ${argument.id} already registered")
+        this.arguments += argument
     }
 
     class Builder(val id: String, val slashCommand: SlashCommand) {
         init {
-            slashCommand.setID(id)
+            slashCommand.id = id
+        }
+
+        fun addArgument(argument: CommandArgument<*>): Builder {
+            slashCommand.addArgument(argument)
+            return this
         }
 
         fun build(): SlashCommand {
-            if (slashCommand.getID().isEmpty()) throw IllegalArgumentException("ID cant be empty")
+            if (slashCommand.id.isEmpty()) throw IllegalArgumentException("ID cant be empty")
 
             return slashCommand
         }

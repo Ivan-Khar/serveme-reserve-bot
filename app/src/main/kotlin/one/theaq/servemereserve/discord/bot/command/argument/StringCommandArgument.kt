@@ -1,8 +1,8 @@
 package one.theaq.servemereserve.discord.bot.command.argument
 
-class StringCommandArgument: CommandArgument<String> {
-    override fun getValue(): String {
-        TODO("Not yet implemented")
-    }
+import net.dv8tion.jda.api.interactions.commands.OptionType
+
+class StringCommandArgument(id: String, type: OptionType) : CommandArgument<String>(id, type) {
+
 
 }
